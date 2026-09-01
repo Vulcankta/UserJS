@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>WebTranslator Test Harness</title>
+  <script>
+    // GM_* shims backed by an in-memory store, with observable logs
+    window.__gmLog = []
+    window.__menu = []
+    const store = {}
+    window.GM_getValue = k => (k in store ? store[k] : undefined)
+    window.GM_setValue = (k, v) => { store[k] = v; window.__gmLog.push(['set', k, v]) }
+    window.GM_addStyle = css => { const s = document.createElement('style'); s.textContent = css; document.head.appendChild(s); return s }
+    window.GM_notification = o => window.__gmLog.push(['notify', o.text])
+    window.GM_registerMenuCommand = (name, fn) => { const id = window.__menu.length; window.__menu.push({ name, fn }); return id }
+    window.GM_unregisterMenuCommand = id => { window.__menu[id] = null }
+  </script>
+</head>
+<body>
+  <h1>The Quick Brown Fox</h1>
+  <p>Hello world, this is an English paragraph used to verify the translation feature of the userscript.</p>
+  <pre>code should not translate</pre>
+  <p id="status">pending</p>
+  <!-- 模拟油猴 document-end 注入时机 -->
+  <script src="../web-translate.user.js"></script>
+</body>
+</html>

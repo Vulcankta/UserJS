@@ -1,0 +1,8 @@
+# 本地测试产生的临时文件与浏览器配置
+.tmp-edge-profile/
+.tmp-*
+.tmp-*/
+
+# 系统与编辑器杂项
+Thumbs.db
+.DS_Store
